@@ -1,38 +1,192 @@
-.App {
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.pokedex-header {
+  background-color: #cc0000;
+  font-weight: bold;
+  display: flex;
+  height: 60px;
+  width: 100%;
+}
+
+.pokedex-body {
+  display: flex;
+  flex-direction: row;
+}
+
+.pokecard-container {
+  padding: 20px;
+}
+
+.pokecard {
+  border: 2px solid black;
+}
+
+.pokecard-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.pokecard-details:hover {
+  cursor: pointer;
+}
+
+.pokecard-image-container {
+  position: relative;
+  top: 0;
+  left: 0;
+}
+
+.pokecard-pokemon {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+.pokecard-pokeball {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 50%;
+}
+
+.pokecard-details-modal {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 10%;
+  left: 10%;
+  bottom: 10%;
+  right: 10%;
+  border: 2px solid black;
+}
+
+.pokemon-type-container {
+  border: 2px solid black;
+  font-size: large;
+}
+
+.div-bordered {
+  border: 2px solid black;
+}
+
+.poke-type {
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 30px; /* Rounded corners for the background */
   text-align: center;
+  font-size: 24px; /* Adjust font size as needed */
+  margin-top: 10px;
+  border: 2px solid black;
+  display: flex;
+  box-shadow: 3px 3px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.poke-name {
+  color: black; /* Text color */
+  padding: 10px 20px; /* Adjust padding as needed */
+  border-radius: 30px; /* Rounded corners for the background */
+  text-align: center;
+  font-size: 24px; /* Adjust font size as needed */
+  margin-top: 10px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.type-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.pokecard-left {
+  min-width: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.evolution-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.poke-evoMethod {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20vh;
+  flex-direction: column;
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+.evoMethod-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.firstEvo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.poke-evoMethodSpecific {
+  overflow-wrap: break-word; /* Allow long words to break and wrap */
+  word-wrap: break-word; /* For compatibility with some older browsers */
+  white-space: normal; /* Allow whitespace to wrap */
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+  background-color: #f0f0f0; /* Optional: Add a background color for visualization */
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  /* Optional: Set a fixed width for the card if needed */
+  width: 170vh;
+}
+
+.poke-ability-container {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.poke-ability {
+  border-radius: 30px; /* Rounded corners for the background */
+  text-align: center;
+  font-size: 20px; /* Adjust font size as needed */
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 2px solid black;
+  cursor: pointer;
+}
+
+.poke-sprites {
+  display: flex;
+  flex-direction: column;
+  min-width: 20%;
+  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.fixed-pokesprite {
+  width: 100px;
+  height: 100px;
+  object-fit: none;
 }
