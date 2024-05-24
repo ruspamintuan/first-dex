@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import axios from "axios";
 import { Route, Routes, Navigate, Outlet } from "react-router-dom";
 import PokedexHome from "./PokedexHome";
@@ -7,6 +7,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 
 export default function PokedexMain() {
   const [pokeList, setPokeList] = useState([]);
@@ -15,10 +16,12 @@ export default function PokedexMain() {
   const [currentCount, setCurrentCount] = useState(10);
   const [pokedexList, setPokedexList] = useState([]);
   const [pokedex, setPokedex] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const filteredList = useMemo(() => pokeList?.filter((poke) => poke?.pokemon_species?.name?.includes(searchInput.toLowerCase())), [searchInput, pokeList]);
 
   useEffect(() => {
-    setShown(pokeList.slice(0, currentCount));
-  }, [pokeList, currentCount]);
+    setShown(filteredList.slice(0, currentCount));
+  }, [filteredList, currentCount]);
 
   useEffect(() => {
     shown.forEach((poke) => {
@@ -58,27 +61,31 @@ export default function PokedexMain() {
     }
   }, [pokedex, pokedexList]);
 
-  console.log({ pokeList });
-
+  console.log({ filteredList });
+  console.log({ searchInput });
+  console.log({ shown });
   return (
     <div>
       {pokedexList?.length > 0 && pokedex && (
-        <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-          <InputLabel id="demo-select-small-label">Pokedex</InputLabel>
-          <Select
-            defaultValue=""
-            labelId="demo-select-small-label"
-            id="demo-select-small"
-            value={pokedex}
-            label="Generation"
-            onChange={(val) => {
-              setPokedex(val.target.value);
-            }}>
-            {pokedexList.map((dex) => {
-              return <MenuItem value={dex}>{dex.name.toUpperCase()}</MenuItem>;
-            })}
-          </Select>
-        </FormControl>
+        <>
+          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+            <InputLabel id="demo-select-small-label">Pokedex</InputLabel>
+            <Select
+              defaultValue=""
+              labelId="demo-select-small-label"
+              id="demo-select-small"
+              value={pokedex}
+              label="Generation"
+              onChange={(val) => {
+                setPokedex(val.target.value);
+              }}>
+              {pokedexList.map((dex) => {
+                return <MenuItem value={dex}>{dex.name.toUpperCase()}</MenuItem>;
+              })}
+            </Select>
+          </FormControl>
+          <TextField id="standard-basic" label="Search" variant="standard" onChange={(e) => setSearchInput(e.target.value)} />
+        </>
       )}
       <Routes>
         <Route path="/pokedex" element={<Outlet />}>
@@ -87,7 +94,17 @@ export default function PokedexMain() {
         </Route>
         <Route path="/" element={<Navigate to="/pokedex" replace />} />
       </Routes>
-      <button onClick={() => loadMore()}>LOAD MORE</button>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          marginBottom: "50px",
+          height: "5vh",
+        }}>
+        <button style={{ width: "30%" }} onClick={() => loadMore()}>
+          LOAD MORE
+        </button>
+      </div>
     </div>
   );
 }
