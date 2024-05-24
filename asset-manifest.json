@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/first-dex/static/css/main.9e2332a9.css",
-    "main.js": "/first-dex/static/js/main.5620fcb2.js",
+    "main.js": "/first-dex/static/js/main.af863105.js",
     "static/media/dragon.svg": "/first-dex/static/media/dragon.9d32757b191cbbaea8d4d418ff5d4ed3.svg",
     "static/media/pokeball.svg": "/first-dex/static/media/pokeball.075974ae202441bd3adb78732b6c5b74.svg",
     "static/media/fire.svg": "/first-dex/static/media/fire.e0bd7fcab2121e7ac1ffbbe09a3ca5dd.svg",
@@ -23,10 +23,10 @@
     "static/media/grass.svg": "/first-dex/static/media/grass.e09623e3345d5bf5286f5323dd923c60.svg",
     "static/media/normal.svg": "/first-dex/static/media/normal.2ba66dd583ebf70eb414a0cfd20a48be.svg",
     "main.9e2332a9.css.map": "/first-dex/static/css/main.9e2332a9.css.map",
-    "main.5620fcb2.js.map": "/first-dex/static/js/main.5620fcb2.js.map"
+    "main.af863105.js.map": "/first-dex/static/js/main.af863105.js.map"
   },
   "entrypoints": [
     "static/css/main.9e2332a9.css",
-    "static/js/main.5620fcb2.js"
+    "static/js/main.af863105.js"
   ]
 }
