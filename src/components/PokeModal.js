@@ -14,6 +14,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import CustomBackground from "../custom/CustomBackground";
 import PokeType from "../custom/PokeType";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import AutoAwesomeOutlinedIcon from '@mui/icons-material/AutoAwesomeOutlined';
+import { useMediaQuery } from "@mui/material";
 
 export default function PokeModal() {
   const location = useLocation();
@@ -22,6 +25,8 @@ export default function PokeModal() {
   const [tab, setTab] = useState(1);
   const [pokemonDetails, setPokemonDetails] = useState(location?.state?.pokemonData);
   const [descriptionKey] = useState("");
+  const isSmall = useMediaQuery('(max-width:600px)');
+  const isMedium = useMediaQuery('(min-width:601px) and (max-width:960px)');
 
   useEffect(() => {
     if (!location?.state) {
@@ -42,14 +47,12 @@ export default function PokeModal() {
     return word.charAt(0).toUpperCase() + word.slice(1);
   }
 
-  console.log({ pokemonDetails });
-
   return (
     <div className="container">
       <div className="card">
         <div className="card-content">
           <CustomBackground pokemon={pokemonDetails} className="">
-            <div style={{ display: "flex", flexDirection: "row" }}>
+            <div style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row" }}>
               <div style={{ minWidth: "30%" }}>
                 <div>
                   <ArrowBackIcon
@@ -69,10 +72,16 @@ export default function PokeModal() {
                   <img alt="pokeball-bg" width={"100%"} className="pokecard-pokeball" src={pokeball}></img>
                   <FormGroup>
                     <FormControlLabel
+                      labelPlacement="start"
+                      style={{ display: "flex", justifyContent: "center"}}
                       control={
                         <Switch
+                          size="medium"
+                          color="default"
+                          checkedIcon={<AutoAwesomeIcon />}
+                          icon={<AutoAwesomeOutlinedIcon />}
                           value={!shiny}
-                          onChange={(e) => {
+                          onChange={() => {
                             setShiny(!shiny);
                           }}
                         />
@@ -83,16 +92,15 @@ export default function PokeModal() {
                 </div>
 
                 <div style={{ textAlign: "center", fontWeight: "bolder", fontSize: "36px" }}>{capitalize(location?.state?.data.pokemon_species.name)}</div>
-                <div style={{ display: "flex", padding: "15px", justifyContent: "center" }}>
+                <div style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row", padding: "15px", justifyContent: "center" }}>
                   {pokemonDetails.types.map((type) => {
                     return <PokeType type={type.type} style={{ width: "75%" }} />;
                   })}
                 </div>
               </div>
               <div style={{ minWidth: "69%" }}>
-                <div style={{ display: "flex" }}></div>
-                <div style={{ display: "flex" }}>
-                  <Tabs value={tab} onChange={(e, val) => setTab(val)} orientation="vertical">
+              <div style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row" }}>
+                  <Tabs value={tab} onChange={(e, val) => setTab(val)} orientation={isSmall || isMedium ? "horizontal" : "vertical" }>
                     <Tab label="Information" value={1} />
                     <Tab label="Moves" value={2} />
                     <Tab label="Sprites" value={3} />

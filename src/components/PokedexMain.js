@@ -61,9 +61,6 @@ export default function PokedexMain() {
     }
   }, [pokedex, pokedexList]);
 
-  console.log({ filteredList });
-  console.log({ searchInput });
-  console.log({ shown });
   return (
     <div>
       {pokedexList?.length > 0 && pokedex && (
@@ -76,6 +73,7 @@ export default function PokedexMain() {
               id="demo-select-small"
               value={pokedex}
               label="Generation"
+              on
               onChange={(val) => {
                 setPokedex(val.target.value);
               }}>
@@ -84,7 +82,11 @@ export default function PokedexMain() {
               })}
             </Select>
           </FormControl>
-          <TextField id="standard-basic" label="Search" variant="standard" onChange={(e) => setSearchInput(e.target.value)} />
+          <TextField id="standard-basic" label="Search" variant="standard" onKeyDown={(e) => {
+            if (e.code === "Enter") {
+              setSearchInput(e.target.value)
+            }
+          }} />
         </>
       )}
       <Routes>

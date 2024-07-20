@@ -14,6 +14,7 @@ export default function CustomBackground(props) {
 
   useEffect(() => {
     getAverageColor();
+    //eslint-disable-next-line
   }, [props.pokemon]);
 
   return (
