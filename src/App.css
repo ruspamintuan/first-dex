@@ -37,6 +37,9 @@ body {
   position: relative;
   top: 0;
   left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .pokecard-pokemon {
@@ -48,7 +51,6 @@ body {
 .pokecard-pokeball {
   position: absolute;
   top: 0;
-  left: 0;
   z-index: 0;
   opacity: 50%;
 }
@@ -113,23 +115,29 @@ body {
   align-items: center;
 }
 
+.evolution-container-phone {
+  display: flex;
+  align-items: center;
+}
+
 .poke-evoMethod {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 20vh;
+  width: 130px;
   flex-direction: column;
   border: 2px solid black;
   border-radius: 15px;
 }
 
-.evoMethod-container {
+.evoMethod-container{
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin-top: 10px;
 }
+
 
 .firstEvo-container {
   display: flex;
@@ -150,6 +158,11 @@ body {
   align-items: center;
   min-height: 90vh;
   background-color: #f0f0f0; /* Optional: Add a background color for visualization */
+}
+
+
+.phone-container {
+  display: flex;
 }
 
 .card {
@@ -189,4 +202,9 @@ body {
   width: 100px;
   height: 100px;
   object-fit: none;
+}
+
+.stat-container {
+  display: flex;
+  flex-direction: column;
 }

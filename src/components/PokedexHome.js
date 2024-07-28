@@ -6,6 +6,7 @@ import { useMediaQuery } from "@mui/material";
 export default function PokedexHome({ pokeList }) {
   const isSmall = useMediaQuery('(max-width:600px)');
   const isMedium = useMediaQuery('(min-width:601px) and (max-width:960px)');
+  // const phoneSize = useMediaQuery('(min-width:300px) and (max-width:599px)');
 
   return (
     <div style={{ marginTop: "40px" }}>

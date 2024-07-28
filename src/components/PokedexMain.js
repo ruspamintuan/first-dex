@@ -8,6 +8,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import { useLocation } from "react-router";
 
 export default function PokedexMain() {
   const [pokeList, setPokeList] = useState([]);
@@ -18,6 +19,7 @@ export default function PokedexMain() {
   const [pokedex, setPokedex] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const filteredList = useMemo(() => pokeList?.filter((poke) => poke?.pokemon_species?.name?.includes(searchInput.toLowerCase())), [searchInput, pokeList]);
+  const location = useLocation();
 
   useEffect(() => {
     setShown(filteredList.slice(0, currentCount));
@@ -83,10 +85,10 @@ export default function PokedexMain() {
             </Select>
           </FormControl>
           <TextField id="standard-basic" label="Search" variant="standard" onKeyDown={(e) => {
-            if (e.code === "Enter") {
+            if (e.code === "Enter" || e.key === "Enter") {
               setSearchInput(e.target.value)
             }
-          }} />
+          }}/>
         </>
       )}
       <Routes>
@@ -96,17 +98,19 @@ export default function PokedexMain() {
         </Route>
         <Route path="/" element={<Navigate to="/pokedex" replace />} />
       </Routes>
-      <div
-        style={{
+      {location?.pathname === "/pokedex/" && (
+        <div
+          style={{
           display: "flex",
           justifyContent: "center",
           marginBottom: "50px",
           height: "5vh",
         }}>
-        <button style={{ width: "30%" }} onClick={() => loadMore()}>
-          LOAD MORE
+          <button style={{ width: "30%" }} onClick={() => loadMore()}>
+            LOAD MORE
         </button>
-      </div>
+        </div>
+      )}
     </div>
   );
 }
