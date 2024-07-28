@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/first-dex/static/css/main.9e2332a9.css",
-    "main.js": "/first-dex/static/js/main.c8519f25.js",
+    "main.css": "/first-dex/static/css/main.ee3c655a.css",
+    "main.js": "/first-dex/static/js/main.8682b8b9.js",
     "static/media/dragon.svg": "/first-dex/static/media/dragon.ad58eb2baaaebe0868bd20a120bc68c2.svg",
     "static/media/pokeball.svg": "/first-dex/static/media/pokeball.fbbfde8ce2aca7bf60882fad1e41326c.svg",
     "static/media/fire.svg": "/first-dex/static/media/fire.2a1a2466bba350e09d83684c6e7a0b14.svg",
@@ -22,11 +22,11 @@
     "static/media/electric.svg": "/first-dex/static/media/electric.e7badb5d85f1824fd4d233242cbde328.svg",
     "static/media/grass.svg": "/first-dex/static/media/grass.e09623e3345d5bf5286f5323dd923c60.svg",
     "static/media/normal.svg": "/first-dex/static/media/normal.2d254b2a2162c24e732daefc0cba478f.svg",
-    "main.9e2332a9.css.map": "/first-dex/static/css/main.9e2332a9.css.map",
-    "main.c8519f25.js.map": "/first-dex/static/js/main.c8519f25.js.map"
+    "main.ee3c655a.css.map": "/first-dex/static/css/main.ee3c655a.css.map",
+    "main.8682b8b9.js.map": "/first-dex/static/js/main.8682b8b9.js.map"
   },
   "entrypoints": [
-    "static/css/main.9e2332a9.css",
-    "static/js/main.c8519f25.js"
+    "static/css/main.ee3c655a.css",
+    "static/js/main.8682b8b9.js"
   ]
 }
