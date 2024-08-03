@@ -100,7 +100,7 @@ export default function PokedexMain() {
         </Route>
         <Route path="/" element={<Navigate to="/pokedex" replace />} />
       </Routes>
-      {location?.pathname === "/pokedex/" && (
+      {location?.key === "default" && (
         <div
           style={{
           display: "flex",

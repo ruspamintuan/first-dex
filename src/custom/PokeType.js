@@ -11,7 +11,7 @@ export default function PokeType({ type, ...props }) {
     if(type) {
       const result = await axios.get(`https://pokeapi.co/api/v2/type/${type?.name}`)
       console.log("Resulttt", result)
-      setShowModal(true)
+      // setShowModal(true)
       setTypeDetails(result?.data)
     }
   }
