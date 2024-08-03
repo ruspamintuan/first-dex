@@ -63,6 +63,8 @@ export default function PokedexMain() {
     }
   }, [pokedex, pokedexList]);
 
+  console.log("pathName", location)
+
   return (
     <div>
       {pokedexList?.length > 0 && pokedex && (

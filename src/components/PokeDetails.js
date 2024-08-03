@@ -78,6 +78,15 @@ export default function PokeDetails({ pokemon, shiny }) {
     return str.replace(/[\f\n\r\t\v\b]/g, ' ');
   };
 
+  const statNameMapper = {
+    hp: "HP",
+    attack: "ATK",
+    defense: "DEF",
+    "special-attack": "SP-ATK",
+    "special-defense": "SP-DEF",
+    speed: "SPD"
+  }
+
   return (
     <div style={{ width: isSmall || isMedium ? "100%" : "90%" }}>
       <div style={{ display: "flex" }}>
@@ -157,7 +166,7 @@ export default function PokeDetails({ pokemon, shiny }) {
             return (
               <Grid item xl={2} xs={4}>
                 <div className="stat-container">
-                  <div style={{alignSelf: "center"}}>{stat.stat.name.toUpperCase()}</div>
+                  <div style={{alignSelf: "center"}}>{statNameMapper[stat.stat.name]?.toUpperCase()}</div>
                   <div style={{ display: "flex", justifyContent: "center", fontWeight: "bold" }}>{stat.base_stat}</div>
                 </div>
               </Grid>
