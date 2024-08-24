@@ -9,6 +9,7 @@ import PokeType from "../custom/PokeType";
 export default function PokeCard({ data }) {
   const [pokemonData, setPokemonData] = useState({});
   const [loading, setLoading] = useState(true);
+  const [imageLoaded, setImageLoaded] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,7 +25,7 @@ export default function PokeCard({ data }) {
 
   return (
     <div className="pokecard-container">
-      <CustomBackground pokemon={pokemonData} className="pokecard">
+      <CustomBackground pokemon={pokemonData} className="pokecard" imageLoaded={imageLoaded}>
         {loading ? (
           <div>Loading...</div>
         ) : (
@@ -60,13 +61,9 @@ export default function PokeCard({ data }) {
                     width={"100%"}
                     className="pokecard-pokemon"
                     src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`}
+                    onLoad={() => setImageLoaded(true)}
                   ></img>
-                  <img
-                    alt="pokeballBg"
-                    width={"100%"}
-                    className="pokecard-pokeball"
-                    src={pokeball}
-                  ></img>
+                  <img alt="pokeballBg" width={"100%"} className="pokecard-pokeball" src={pokeball}></img>
                 </div>
               </div>
             </div>

@@ -28,6 +28,7 @@ export default function PokeModal() {
   const isSmall = useMediaQuery("(max-width:600px)");
   const isMedium = useMediaQuery("(min-width:601px) and (max-width:960px)");
   const isPhoneSize = useMediaQuery("(min-width:300px) and (max-width:598px)");
+  const [imageLoaded, setImageLoaded] = useState(false);
 
   useEffect(() => {
     if (!location?.state) {
@@ -52,7 +53,7 @@ export default function PokeModal() {
     <div className="phone-container">
       <div className="card">
         <div className="card-content">
-          <CustomBackground pokemon={pokemonDetails} className="">
+          <CustomBackground pokemon={pokemonDetails} className="" imageLoaded={imageLoaded}>
             <div style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row" }}>
               <div style={{ minWidth: "30%" }}>
                 <div>
@@ -70,18 +71,10 @@ export default function PokeModal() {
                     width={isSmall || isMedium ? "50%" : "100%"}
                     className={isSmall || isMedium ? "" : "pokecard-pokemon"}
                     style={{ zIndex: 1, position: "relative" }}
-                    src={
-                      shiny
-                        ? pokemonDetails.sprites.other["official-artwork"].front_shiny
-                        : pokemonDetails.sprites.other["official-artwork"].front_default
-                    }
+                    src={shiny ? pokemonDetails.sprites.other["official-artwork"].front_shiny : pokemonDetails.sprites.other["official-artwork"].front_default}
+                    onLoad={() => setImageLoaded(true)}
                   ></img>
-                  <img
-                    alt="pokeball-bg"
-                    width={isSmall || isMedium ? "50%" : "100%"}
-                    className="pokecard-pokeball"
-                    src={pokeball}
-                  ></img>
+                  <img alt="pokeball-bg" width={isSmall || isMedium ? "50%" : "100%"} className="pokecard-pokeball" src={pokeball}></img>
                   <FormGroup>
                     <FormControlLabel
                       labelPlacement="start"
@@ -103,9 +96,7 @@ export default function PokeModal() {
                   </FormGroup>
                 </div>
 
-                <div style={{ textAlign: "center", fontWeight: "bolder", fontSize: "36px" }}>
-                  {capitalize(location?.state?.data.pokemon_species.name)}
-                </div>
+                <div style={{ textAlign: "center", fontWeight: "bolder", fontSize: "36px" }}>{capitalize(location?.state?.data.pokemon_species.name)}</div>
                 <div
                   style={{
                     display: "flex",
@@ -128,36 +119,16 @@ export default function PokeModal() {
                     maxWidth: "320px",
                   }}
                 >
-                  <Tabs
-                    variant="scrollable"
-                    scrollButtons
-                    allowScrollButtonsMobile
-                    value={tab}
-                    onChange={(e, val) => setTab(val)}
-                    orientation={isSmall || isMedium ? "horizontal" : "vertical"}
-                  >
+                  <Tabs variant="scrollable" scrollButtons allowScrollButtonsMobile value={tab} onChange={(e, val) => setTab(val)} orientation={isSmall || isMedium ? "horizontal" : "vertical"}>
                     <Tab label="Information" value={1} />
                     <Tab label="Moves" value={2} />
                     <Tab label="Sprites" value={3} />
-                    {pokemonDetails.varieties && pokemonDetails.varieties.length > 1 && (
-                      <Tab label="Variants" value={4} />
-                    )}
+                    {pokemonDetails.varieties && pokemonDetails.varieties.length > 1 && <Tab label="Variants" value={4} />}
                   </Tabs>
                 </div>
-                {tab === 1 && (
-                  <PokeDetails
-                    descriptionKey={descriptionKey}
-                    pokemon={pokemonDetails}
-                    shiny={shiny}
-                  />
-                )}
+                {tab === 1 && <PokeDetails descriptionKey={descriptionKey} pokemon={pokemonDetails} shiny={shiny} />}
                 {tab === 2 && <PokeMoves moves={pokemonDetails.moves} />}
-                {tab === 3 && (
-                  <PokeSprite
-                    sprites={pokemonDetails.sprites}
-                    gen={pokemonDetails?.generation?.name}
-                  />
-                )}
+                {tab === 3 && <PokeSprite sprites={pokemonDetails.sprites} gen={pokemonDetails?.generation?.name} />}
                 {tab === 4 && <PokeVariants variant={pokemonDetails?.varieties} shiny={shiny} />}
               </div>
             </div>
@@ -169,7 +140,7 @@ export default function PokeModal() {
     <div className="container">
       <div className="card">
         <div className="card-content">
-          <CustomBackground pokemon={pokemonDetails} className="">
+          <CustomBackground pokemon={pokemonDetails} className="" imageLoaded={imageLoaded}>
             <div style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row" }}>
               <div style={{ minWidth: "30%" }}>
                 <div>
@@ -187,18 +158,10 @@ export default function PokeModal() {
                     width={isSmall || isMedium ? "50%" : "100%"}
                     className={isSmall || isMedium ? "" : "pokecard-pokemon"}
                     style={{ zIndex: 1, position: "relative" }}
-                    src={
-                      shiny
-                        ? pokemonDetails.sprites.other["official-artwork"].front_shiny
-                        : pokemonDetails.sprites.other["official-artwork"].front_default
-                    }
+                    src={shiny ? pokemonDetails.sprites.other["official-artwork"].front_shiny : pokemonDetails.sprites.other["official-artwork"].front_default}
+                    onLoad={() => setImageLoaded(true)}
                   ></img>
-                  <img
-                    alt="pokeball-bg"
-                    width={isSmall || isMedium ? "50%" : "100%"}
-                    className="pokecard-pokeball"
-                    src={pokeball}
-                  ></img>
+                  <img alt="pokeball-bg" width={isSmall || isMedium ? "50%" : "100%"} className="pokecard-pokeball" src={pokeball}></img>
                   <FormGroup>
                     <FormControlLabel
                       labelPlacement="start"
@@ -220,9 +183,7 @@ export default function PokeModal() {
                   </FormGroup>
                 </div>
 
-                <div style={{ textAlign: "center", fontWeight: "bolder", fontSize: "36px" }}>
-                  {capitalize(location?.state?.data.pokemon_species.name)}
-                </div>
+                <div style={{ textAlign: "center", fontWeight: "bolder", fontSize: "36px" }}>{capitalize(location?.state?.data.pokemon_species.name)}</div>
                 <div
                   style={{
                     display: "flex",
@@ -238,35 +199,16 @@ export default function PokeModal() {
                 </div>
               </div>
               <div style={{ minWidth: "69%" }}>
-                <div
-                  style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row" }}
-                >
-                  <Tabs
-                    value={tab}
-                    onChange={(e, val) => setTab(val)}
-                    orientation={isSmall || isMedium ? "horizontal" : "vertical"}
-                  >
+                <div style={{ display: "flex", flexDirection: isSmall || isMedium ? "column" : "row" }}>
+                  <Tabs value={tab} onChange={(e, val) => setTab(val)} orientation={isSmall || isMedium ? "horizontal" : "vertical"}>
                     <Tab label="Information" value={1} />
                     <Tab label="Moves" value={2} />
                     <Tab label="Sprites" value={3} />
-                    {pokemonDetails.varieties && pokemonDetails.varieties.length > 1 && (
-                      <Tab label="Variants" value={4} />
-                    )}
+                    {pokemonDetails.varieties && pokemonDetails.varieties.length > 1 && <Tab label="Variants" value={4} />}
                   </Tabs>
-                  {tab === 1 && (
-                    <PokeDetails
-                      descriptionKey={descriptionKey}
-                      pokemon={pokemonDetails}
-                      shiny={shiny}
-                    />
-                  )}
+                  {tab === 1 && <PokeDetails descriptionKey={descriptionKey} pokemon={pokemonDetails} shiny={shiny} />}
                   {tab === 2 && <PokeMoves moves={pokemonDetails.moves} />}
-                  {tab === 3 && (
-                    <PokeSprite
-                      sprites={pokemonDetails.sprites}
-                      gen={pokemonDetails?.generation?.name}
-                    />
-                  )}
+                  {tab === 3 && <PokeSprite sprites={pokemonDetails.sprites} gen={pokemonDetails?.generation?.name} />}
                   {tab === 4 && <PokeVariants variant={pokemonDetails?.varieties} shiny={shiny} />}
                 </div>
               </div>

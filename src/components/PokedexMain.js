@@ -9,6 +9,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import { useLocation } from "react-router";
+import { Button, Divider } from "@mui/material";
 
 export default function PokedexMain() {
   const [pokeList, setPokeList] = useState([]);
@@ -18,10 +19,11 @@ export default function PokedexMain() {
   const [pokedexList, setPokedexList] = useState([]);
   const [pokedex, setPokedex] = useState("");
   const [searchInput, setSearchInput] = useState("");
+  const [search, setSearch] = useState(false);
   const filteredList = useMemo(
-    () =>
-      pokeList?.filter((poke) => poke?.pokemon_species?.name?.includes(searchInput.toLowerCase())),
-    [searchInput, pokeList]
+    () => pokeList?.filter((poke) => poke?.pokemon_species?.name?.includes(searchInput.toLowerCase())),
+    //eslint-disable-next-line
+    [search, pokeList]
   );
   const location = useLocation();
 
@@ -31,9 +33,7 @@ export default function PokedexMain() {
 
   useEffect(() => {
     shown.forEach((poke) => {
-      const found = pokeListDetails.find(
-        (item) => item?.pokemon_species?.name === poke.pokemon_species.name
-      );
+      const found = pokeListDetails.find((item) => item?.pokemon_species?.name === poke.pokemon_species.name);
       if (!found) {
         setPokeListDetails((old) => [...old, poke]);
       }
@@ -69,46 +69,59 @@ export default function PokedexMain() {
     }
   }, [pokedex, pokedexList]);
 
-  console.log("pathName", { location });
-  console.log("XDDD");
-
-  useEffect(() => {
-    console.log("Pokedex changed!", pokedex);
-  }, [pokedex]);
-
   return (
     <div>
       {pokedexList?.length > 0 && pokedex && (
-        <>
-          <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
-            <InputLabel id="demo-select-small-label">Pokedex</InputLabel>
-            <Select
-              defaultValue=""
-              labelId="demo-select-small-label"
-              id="demo-select-small"
-              value={pokedex}
-              label="Generation"
-              on
-              onChange={(val) => {
-                setPokedex(val.target.value);
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <div>
+            <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+              <InputLabel id="demo-select-small-label">Pokedex</InputLabel>
+              <Select
+                defaultValue=""
+                labelId="demo-select-small-label"
+                id="demo-select-small"
+                value={pokedex}
+                label="Generation"
+                on
+                onChange={(val) => {
+                  setPokedex(val.target.value);
+                }}
+              >
+                {pokedexList.map((dex) => {
+                  return <MenuItem value={dex}>{dex.name.toUpperCase()}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
+            <TextField
+              id="standard-basic"
+              label="Search"
+              variant="standard"
+              value={searchInput}
+              onChange={(e) => {
+                setSearchInput(e.target.value);
+              }}
+              onKeyDown={(e) => {
+                if (e.code === "Enter" || e.key === "Enter") {
+                  setSearch(!search);
+                }
+              }}
+            />
+          </div>
+          <Divider orientation="vertical" />
+          <div>
+            <Button
+              variant="outlined"
+              onClick={() => {
+                setCurrentCount(10);
+                setSearchInput("");
+                setSearch(!search);
               }}
             >
-              {pokedexList.map((dex) => {
-                return <MenuItem value={dex}>{dex.name.toUpperCase()}</MenuItem>;
-              })}
-            </Select>
-          </FormControl>
-          <TextField
-            id="standard-basic"
-            label="Search"
-            variant="standard"
-            onKeyDown={(e) => {
-              if (e.code === "Enter" || e.key === "Enter") {
-                setSearchInput(e.target.value);
-              }
-            }}
-          />
-        </>
+              {" "}
+              Reset{" "}
+            </Button>
+          </div>
+        </div>
       )}
       <Routes>
         <Route path="/pokedex" element={<Outlet />}>
@@ -117,7 +130,7 @@ export default function PokedexMain() {
         </Route>
         <Route path="/" element={<Navigate to="/pokedex" replace />} />
       </Routes>
-      {(location?.key === "default" || location.pathname === "/pokedex") && (
+      {(location?.key === "default" || location.pathname === "/pokedex") && currentCount <= filteredList.length && (
         <div
           style={{
             display: "flex",
@@ -126,9 +139,9 @@ export default function PokedexMain() {
             height: "5vh",
           }}
         >
-          <button style={{ width: "30%" }} onClick={() => loadMore()}>
+          <Button style={{ width: "30%" }} onClick={() => loadMore()} variant="outlined">
             LOAD MORE
-          </button>
+          </Button>
         </div>
       )}
     </div>

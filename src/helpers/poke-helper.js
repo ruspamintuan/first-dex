@@ -115,12 +115,8 @@ function pokeSpeciesIdParser(link) {
 export async function evolutionBuilder(data) {
   const line = {
     basic: data.chain.species.name,
-    sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeSpeciesIdParser(
-      data.chain.species.url
-    )}.png`,
-    shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokeSpeciesIdParser(
-      data.chain.species.url
-    )}.png`,
+    sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeSpeciesIdParser(data.chain.species.url)}.png`,
+    shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokeSpeciesIdParser(data.chain.species.url)}.png`,
     id: pokeSpeciesIdParser(data.chain.species.url),
   };
 
@@ -128,12 +124,8 @@ export async function evolutionBuilder(data) {
     const firstStage = data.chain.evolves_to.map((variant) => {
       const evolution = {
         name: variant.species.name,
-        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeSpeciesIdParser(
-          variant.species.url
-        )}.png`,
-        shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokeSpeciesIdParser(
-          variant.species.url
-        )}.png`,
+        sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeSpeciesIdParser(variant.species.url)}.png`,
+        shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokeSpeciesIdParser(variant.species.url)}.png`,
         id: pokeSpeciesIdParser(variant.species.url),
       };
 
@@ -155,10 +147,7 @@ export async function evolutionBuilder(data) {
         }
 
         // Push only if details is complete (trigger isn't the only property)
-        if (
-          Object.keys(evoDetails).length > 1 ||
-          (Object.keys(evoDetails).length === 1 && evoDetails.trigger !== "level-up")
-        ) {
+        if (Object.keys(evoDetails).length > 1 || (Object.keys(evoDetails).length === 1 && evoDetails.trigger !== "level-up")) {
           evoMethods.push(evoDetails);
         }
       });
@@ -169,12 +158,8 @@ export async function evolutionBuilder(data) {
         const secondStage = variant.evolves_to.map((evolve) => {
           const nextEvo = {
             name: evolve.species.name,
-            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeSpeciesIdParser(
-              evolve.species.url
-            )}.png`,
-            shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokeSpeciesIdParser(
-              evolve.species.url
-            )}.png`,
+            sprite: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokeSpeciesIdParser(evolve.species.url)}.png`,
+            shiny: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${pokeSpeciesIdParser(evolve.species.url)}.png`,
             id: pokeSpeciesIdParser(evolve.species.url),
           };
 
@@ -196,10 +181,7 @@ export async function evolutionBuilder(data) {
             }
 
             // Push only if details is complete (trigger isn't the only property)
-            if (
-              Object.keys(nextEvoDetails).length > 1 ||
-              (Object.keys(nextEvoDetails).length === 1 && nextEvoDetails.trigger !== "level-up")
-            ) {
+            if (Object.keys(nextEvoDetails).length > 1 || (Object.keys(nextEvoDetails).length === 1 && nextEvoDetails.trigger !== "level-up")) {
               evoMethods.push(nextEvoDetails);
             }
           });
@@ -302,9 +284,7 @@ export const evoMethodMapper = (evolution) => {
 };
 
 export const getPokemonNameAndId = (pokemonData) => {
-  return `#${pokemonData?.id.toString().padStart(3, "0")} - ${pokemonData.name
-    .toString()
-    .toUpperCase()}`;
+  return `#${pokemonData?.id?.toString().padStart(3, "0")} - ${pokemonData?.name?.toString().toUpperCase()}`;
 };
 
 export const extractId = (url) => {
