@@ -18,7 +18,11 @@ export default function PokedexMain() {
   const [pokedexList, setPokedexList] = useState([]);
   const [pokedex, setPokedex] = useState("");
   const [searchInput, setSearchInput] = useState("");
-  const filteredList = useMemo(() => pokeList?.filter((poke) => poke?.pokemon_species?.name?.includes(searchInput.toLowerCase())), [searchInput, pokeList]);
+  const filteredList = useMemo(
+    () =>
+      pokeList?.filter((poke) => poke?.pokemon_species?.name?.includes(searchInput.toLowerCase())),
+    [searchInput, pokeList]
+  );
   const location = useLocation();
 
   useEffect(() => {
@@ -27,7 +31,9 @@ export default function PokedexMain() {
 
   useEffect(() => {
     shown.forEach((poke) => {
-      const found = pokeListDetails.find((item) => item?.pokemon_species?.name === poke.pokemon_species.name);
+      const found = pokeListDetails.find(
+        (item) => item?.pokemon_species?.name === poke.pokemon_species.name
+      );
       if (!found) {
         setPokeListDetails((old) => [...old, poke]);
       }
@@ -63,7 +69,12 @@ export default function PokedexMain() {
     }
   }, [pokedex, pokedexList]);
 
-  console.log("pathName", location)
+  console.log("pathName", { location });
+  console.log("XDDD");
+
+  useEffect(() => {
+    console.log("Pokedex changed!", pokedex);
+  }, [pokedex]);
 
   return (
     <div>
@@ -80,17 +91,23 @@ export default function PokedexMain() {
               on
               onChange={(val) => {
                 setPokedex(val.target.value);
-              }}>
+              }}
+            >
               {pokedexList.map((dex) => {
                 return <MenuItem value={dex}>{dex.name.toUpperCase()}</MenuItem>;
               })}
             </Select>
           </FormControl>
-          <TextField id="standard-basic" label="Search" variant="standard" onKeyDown={(e) => {
-            if (e.code === "Enter" || e.key === "Enter") {
-              setSearchInput(e.target.value)
-            }
-          }}/>
+          <TextField
+            id="standard-basic"
+            label="Search"
+            variant="standard"
+            onKeyDown={(e) => {
+              if (e.code === "Enter" || e.key === "Enter") {
+                setSearchInput(e.target.value);
+              }
+            }}
+          />
         </>
       )}
       <Routes>
@@ -100,17 +117,18 @@ export default function PokedexMain() {
         </Route>
         <Route path="/" element={<Navigate to="/pokedex" replace />} />
       </Routes>
-      {location?.key === "default" && (
+      {(location?.key === "default" || location.pathname === "/pokedex") && (
         <div
           style={{
-          display: "flex",
-          justifyContent: "center",
-          marginBottom: "50px",
-          height: "5vh",
-        }}>
+            display: "flex",
+            justifyContent: "center",
+            marginBottom: "50px",
+            height: "5vh",
+          }}
+        >
           <button style={{ width: "30%" }} onClick={() => loadMore()}>
             LOAD MORE
-        </button>
+          </button>
         </div>
       )}
     </div>

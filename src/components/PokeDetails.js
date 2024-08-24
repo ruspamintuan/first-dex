@@ -17,10 +17,9 @@ export default function PokeDetails({ pokemon, shiny }) {
   const [game, setGame] = useState("");
   const [currentLanguage, setCurrentLanguage] = useState("");
   const [descriptionKey, setDescriptionKey] = useState("");
-  const isPhoneSize = useMediaQuery('(min-width:300px) and (max-width:599px)');
-  const isSmall = useMediaQuery('(max-width:600px)');
-  const isMedium = useMediaQuery('(min-width:601px) and (max-width:960px)');
-
+  const isPhoneSize = useMediaQuery("(min-width:300px) and (max-width:599px)");
+  const isSmall = useMediaQuery("(max-width:600px)");
+  const isMedium = useMediaQuery("(min-width:601px) and (max-width:960px)");
 
   useEffect(() => {
     async function fetchEvolutionLine() {
@@ -57,7 +56,6 @@ export default function PokeDetails({ pokemon, shiny }) {
     }
   }, [pokemon]);
 
-
   const languageMapping = {
     "ja-Hrkt": "Japanese",
     roomaji: "Official Roomaji",
@@ -75,7 +73,7 @@ export default function PokeDetails({ pokemon, shiny }) {
   };
 
   const cleanString = (str) => {
-    return str.replace(/[\f\n\r\t\v\b]/g, ' ');
+    return str.replace(/[\f\n\r\t\v\b]/g, " ");
   };
 
   const statNameMapper = {
@@ -84,8 +82,8 @@ export default function PokeDetails({ pokemon, shiny }) {
     defense: "DEF",
     "special-attack": "SP-ATK",
     "special-defense": "SP-DEF",
-    speed: "SPD"
-  }
+    speed: "SPD",
+  };
 
   return (
     <div style={{ width: isSmall || isMedium ? "100%" : "90%" }}>
@@ -103,7 +101,8 @@ export default function PokeDetails({ pokemon, shiny }) {
                 onChange={(val) => {
                   setGame(val.target.value);
                   setDescriptionKey(`${val.target.value}-${currentLanguage}`);
-                }}>
+                }}
+              >
                 {gameVersions.map((game) => {
                   return <MenuItem value={game}>{game.toUpperCase()}</MenuItem>;
                 })}
@@ -124,7 +123,8 @@ export default function PokeDetails({ pokemon, shiny }) {
                 onChange={(val) => {
                   setCurrentLanguage(val.target.value);
                   setDescriptionKey(`${game}-${val.target.value}`);
-                }}>
+                }}
+              >
                 {languages.map((lang) => {
                   return <MenuItem value={lang}>{languageMapping[lang]}</MenuItem>;
                 })}
@@ -136,7 +136,10 @@ export default function PokeDetails({ pokemon, shiny }) {
 
       <div className="div-bordered">
         <div>Description</div>
-        {Object.keys(flavorTexts).length > 0 && descriptionKey && <div>{cleanString(flavorTexts[descriptionKey]) ||  "Data Unavailable"}</div>}
+        <div>{`isPhoneSize: ${isPhoneSize}`}</div>
+        {Object.keys(flavorTexts).length > 0 && descriptionKey && (
+          <div>{cleanString(flavorTexts[descriptionKey]) || "Data Unavailable"}</div>
+        )}
       </div>
       <div className="div-bordered">
         <div>Abilities</div>
@@ -154,7 +157,11 @@ export default function PokeDetails({ pokemon, shiny }) {
           </div>
           <div style={{ width: "50%" }}>
             {pokemon?.abilities?.map((ability) => {
-              return ability.is_hidden && <div className="poke-ability">{`Hidden Ability: ${ability.ability.name.toUpperCase()}`}</div>;
+              return (
+                ability.is_hidden && (
+                  <div className="poke-ability">{`Hidden Ability: ${ability.ability.name.toUpperCase()}`}</div>
+                )
+              );
             })}
           </div>
         </div>
@@ -166,147 +173,173 @@ export default function PokeDetails({ pokemon, shiny }) {
             return (
               <Grid item xl={2} xs={4}>
                 <div className="stat-container">
-                  <div style={{alignSelf: "center"}}>{statNameMapper[stat.stat.name]?.toUpperCase()}</div>
-                  <div style={{ display: "flex", justifyContent: "center", fontWeight: "bold" }}>{stat.base_stat}</div>
+                  <div style={{ alignSelf: "center" }}>
+                    {statNameMapper[stat.stat.name]?.toUpperCase()}
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "center", fontWeight: "bold" }}>
+                    {stat.base_stat}
+                  </div>
                 </div>
               </Grid>
             );
           })}
-          
+
           <Grid item xl={12} xs={12}>
             <div>
               <div>TOTAL</div>
-              <div style={{ display: "flex", justifyContent: "center", fontWeight: "bold" }}>{pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}</div>
+              <div style={{ display: "flex", justifyContent: "center", fontWeight: "bold" }}>
+                {pokemon.stats.reduce((acc, curr) => acc + curr.base_stat, 0)}
+              </div>
             </div>
           </Grid>
         </Grid>
       </div>
-      <div className="div-bordered" style={{ overflowY: "auto"}}>
+      <div className="div-bordered" style={{ overflowY: "auto" }}>
         {evoChain.basic && (
           <>
             {isPhoneSize ? (
-              <div className="evolution-container-phone" style={{ minHeight: "100%", width: "310px" }}>
-              <div>
-                <img alt="pokemonBasic" src={shiny ? evoChain.shiny : evoChain.sprite}></img>
-                <div style={{ textAlign: "center" }}>{evoChain.basic.toUpperCase()}</div>
-              </div>
-              <div>
+              <div
+                className="evolution-container-phone"
+                style={{ minHeight: "100%", width: "310px" }}
+              >
                 <div>
-                  {evoChain?.firstStage?.map((variant) => {
-                    return (
-                      <div key={variant.name} style={{ display: "flex" }}>
-                        <div className="evoMethod-container">
-                          {variant.methods.map((method) => {
-                            return (
-                              <div key={method.trigger} className="poke-evoMethod">
-                                <div>
-                                  <ArrowRightAltIcon />
-                                </div>
-                                <div className="poke-evoMethodSpecific">{evoMethodMapper(method)}</div>
-                              </div>
-                            );
-                          })}
-                        </div>
-                        <div className="firstEvo-container">
-                          <img alt="pokemonMid" src={shiny ? variant.shiny : variant.sprite}></img>
-                          <div>{variant.name.toUpperCase()}</div>
-                        </div>
-
-                        {variant.secondStage && 
-                        <div className="secondStage-container">
-                            {variant.secondStage.map((vari) => {
+                  <img alt="pokemonBasic" src={shiny ? evoChain.shiny : evoChain.sprite}></img>
+                  <div style={{ textAlign: "center" }}>{evoChain.basic.toUpperCase()}</div>
+                </div>
+                <div>
+                  <div>
+                    {evoChain?.firstStage?.map((variant) => {
+                      return (
+                        <div key={variant.name} style={{ display: "flex" }}>
+                          <div className="evoMethod-container">
+                            {variant.methods.map((method) => {
                               return (
-                                <div key={vari.name} style={{ display: "flex" }}>
-                                  <div className="evoMethod-container">
-                                    {vari.methods.map((method) => {
-                                      return (
-                                        <div key={method.trigger} className="poke-evoMethod">
-                                          <div>
-                                            <ArrowRightAltIcon />
-                                          </div>
-                                          <div className="poke-evoMethodSpecific">{evoMethodMapper(method)}</div>
-                                        </div>
-                                      );
-                                    })}
-                                  </div>
+                                <div key={method.trigger} className="poke-evoMethod">
                                   <div>
-                                    <img alt="pokemonFinal" src={shiny ? vari.shiny : vari.sprite}></img>
-                                    <div>{vari.name.toUpperCase()}</div>
+                                    <ArrowRightAltIcon />
+                                  </div>
+                                  <div className="poke-evoMethodSpecific">
+                                    {evoMethodMapper(method)}
                                   </div>
                                 </div>
                               );
-                          })}
-                        </div>
-                        }
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-            ) : 
-              (
-                <div className="evolution-container" style={{ minHeight: "100%" }}>
-                  <div>
-                    <img alt="pokemonBasic" src={shiny ? evoChain.shiny : evoChain.sprite}></img>
-                    <div style={{ textAlign: "center" }}>{evoChain.basic.toUpperCase()}</div>
-                  </div>
-                  <div>
-                    <div>
-                      {evoChain?.firstStage?.map((variant) => {
-                        return (
-                          <div key={variant.name} style={{ display: "flex" }}>
-                            <div className="evoMethod-container">
-                              {variant.methods.map((method) => {
+                            })}
+                          </div>
+                          <div className="firstEvo-container">
+                            <img
+                              alt="pokemonMid"
+                              src={shiny ? variant.shiny : variant.sprite}
+                            ></img>
+                            <div>{variant.name.toUpperCase()}</div>
+                          </div>
+                          {variant.secondStage && (
+                            <div className="secondStage-container">
+                              {variant.secondStage.map((vari) => {
                                 return (
-                                  <div key={method.trigger} className="poke-evoMethod">
-                                    <div>
-                                      <ArrowRightAltIcon />
+                                  <div key={vari.name} style={{ display: "flex" }}>
+                                    <div className="evoMethod-container">
+                                      {vari.methods.map((method) => {
+                                        return (
+                                          <div key={method.trigger} className="poke-evoMethod">
+                                            <div>
+                                              <ArrowRightAltIcon />
+                                            </div>
+                                            <div className="poke-evoMethodSpecific">
+                                              {evoMethodMapper(method)}
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
                                     </div>
-                                    <div className="poke-evoMethodSpecific">{evoMethodMapper(method)}</div>
+                                    <div>
+                                      <img
+                                        alt="pokemonFinal"
+                                        src={shiny ? vari.shiny : vari.sprite}
+                                      ></img>
+                                      <div>{vari.name.toUpperCase()}</div>
+                                    </div>
                                   </div>
                                 );
                               })}
                             </div>
-                            <div className="firstEvo-container">
-                              <img alt="pokemonMid" src={shiny ? variant.shiny : variant.sprite}></img>
-                              <div>{variant.name.toUpperCase()}</div>
-                            </div>
-
-                            {variant.secondStage && 
-                            <div className="secondStage-container">
-                                {variant.secondStage.map((vari) => {
-                                  return (
-                                    <div key={vari.name} style={{ display: "flex" }}>
-                                      <div className="evoMethod-container">
-                                        {vari.methods.map((method) => {
-                                          return (
-                                            <div key={method.trigger} className="poke-evoMethod">
-                                              <div>
-                                                <ArrowRightAltIcon />
-                                              </div>
-                                              <div className="poke-evoMethodSpecific">{evoMethodMapper(method)}</div>
-                                            </div>
-                                          );
-                                        })}
-                                      </div>
-                                      <div>
-                                        <img alt="pokemonFinal" src={shiny ? vari.shiny : vari.sprite}></img>
-                                        <div>{vari.name.toUpperCase()}</div>
-                                      </div>
-                                    </div>
-                                  );
-                              })}
-                            </div>
-                            }
-                          </div>
-                        );
-                      })}
-                    </div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
-              )
-            }
+              </div>
+            ) : (
+              <div className="evolution-container" style={{ minHeight: "100%" }}>
+                <div>
+                  <img alt="pokemonBasic" src={shiny ? evoChain.shiny : evoChain.sprite}></img>
+                  <div style={{ textAlign: "center" }}>{evoChain.basic.toUpperCase()}</div>
+                </div>
+                <div>
+                  <div>
+                    {evoChain?.firstStage?.map((variant) => {
+                      return (
+                        <div key={variant.name} style={{ display: "flex" }}>
+                          <div className="evoMethod-container">
+                            {variant.methods.map((method) => {
+                              return (
+                                <div key={method.trigger} className="poke-evoMethod">
+                                  <div>
+                                    <ArrowRightAltIcon />
+                                  </div>
+                                  <div className="poke-evoMethodSpecific">
+                                    {evoMethodMapper(method)}
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                          <div className="firstEvo-container">
+                            <img
+                              alt="pokemonMid"
+                              src={shiny ? variant.shiny : variant.sprite}
+                            ></img>
+                            <div>{variant.name.toUpperCase()}</div>
+                          </div>
+
+                          {variant.secondStage && (
+                            <div className="secondStage-container">
+                              {variant.secondStage.map((vari) => {
+                                return (
+                                  <div key={vari.name} style={{ display: "flex" }}>
+                                    <div className="evoMethod-container">
+                                      {vari.methods.map((method) => {
+                                        return (
+                                          <div key={method.trigger} className="poke-evoMethod">
+                                            <div>
+                                              <ArrowRightAltIcon />
+                                            </div>
+                                            <div className="poke-evoMethodSpecific">
+                                              {evoMethodMapper(method)}
+                                            </div>
+                                          </div>
+                                        );
+                                      })}
+                                    </div>
+                                    <div>
+                                      <img
+                                        alt="pokemonFinal"
+                                        src={shiny ? vari.shiny : vari.sprite}
+                                      ></img>
+                                      <div>{vari.name.toUpperCase()}</div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            )}
           </>
         )}
       </div>

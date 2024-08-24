@@ -32,8 +32,15 @@ export default function PokeCard({ data }) {
             <div
               className="pokecard-details"
               onClick={() => {
-                navigate(`${pokemonData.id}`, { state: { pokemonData: pokemonData, loading: loading, data: data } });
-              }}>
+                navigate(`${pokemonData.id}`, {
+                  state: {
+                    pokemonData: pokemonData,
+                    loading: loading,
+                    data: data,
+                  },
+                });
+              }}
+            >
               <div className="poke-name">
                 <div>{getPokemonNameAndId(pokemonData)}</div>
               </div>
@@ -52,8 +59,14 @@ export default function PokeCard({ data }) {
                     alt="pokemonSplash"
                     width={"100%"}
                     className="pokecard-pokemon"
-                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`}></img>
-                  <img alt="pokeballBg" width={"100%"} className="pokecard-pokeball" src={pokeball}></img>
+                    src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${pokemonData.id}.png`}
+                  ></img>
+                  <img
+                    alt="pokeballBg"
+                    width={"100%"}
+                    className="pokecard-pokeball"
+                    src={pokeball}
+                  ></img>
                 </div>
               </div>
             </div>
