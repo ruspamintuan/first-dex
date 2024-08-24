@@ -136,7 +136,6 @@ export default function PokeDetails({ pokemon, shiny }) {
 
       <div className="div-bordered">
         <div>Description</div>
-        <div>{`isPhoneSize: ${isPhoneSize}`}</div>
         {Object.keys(flavorTexts).length > 0 && descriptionKey && (
           <div>{cleanString(flavorTexts[descriptionKey]) || "Data Unavailable"}</div>
         )}
