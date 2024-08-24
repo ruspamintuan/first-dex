@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/first-dex/static/css/main.ee3c655a.css",
-    "main.js": "/first-dex/static/js/main.5ffd6db1.js",
+    "main.css": "/first-dex/static/css/main.cefec09f.css",
+    "main.js": "/first-dex/static/js/main.1e19133e.js",
     "static/media/dragon.svg": "/first-dex/static/media/dragon.ad58eb2baaaebe0868bd20a120bc68c2.svg",
     "static/media/pokeball.svg": "/first-dex/static/media/pokeball.fbbfde8ce2aca7bf60882fad1e41326c.svg",
     "static/media/fire.svg": "/first-dex/static/media/fire.2a1a2466bba350e09d83684c6e7a0b14.svg",
@@ -22,11 +22,11 @@
     "static/media/grass.svg": "/first-dex/static/media/grass.e09623e3345d5bf5286f5323dd923c60.svg",
     "static/media/normal.svg": "/first-dex/static/media/normal.2d254b2a2162c24e732daefc0cba478f.svg",
     "index.html": "/first-dex/index.html",
-    "main.ee3c655a.css.map": "/first-dex/static/css/main.ee3c655a.css.map",
-    "main.5ffd6db1.js.map": "/first-dex/static/js/main.5ffd6db1.js.map"
+    "main.cefec09f.css.map": "/first-dex/static/css/main.cefec09f.css.map",
+    "main.1e19133e.js.map": "/first-dex/static/js/main.1e19133e.js.map"
   },
   "entrypoints": [
-    "static/css/main.ee3c655a.css",
-    "static/js/main.5ffd6db1.js"
+    "static/css/main.cefec09f.css",
+    "static/js/main.1e19133e.js"
   ]
 }
